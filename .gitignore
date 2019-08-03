@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+Fraud_Detection_System/input/train_transaction.csv
+Fraud_Detection_System/input/train_identity.csv
+Fraud_Detection_System/input/test_transaction.csv
+Fraud_Detection_System/input/test_identity.csv
+Fraud_Detection_System/input/sample_submission.csv
+Fraud_Detection_System/input/3.txt
