@@ -1,0 +1,28 @@
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import tensorflow as tf
+import matplotlib
+import os
+import warnings
+import csv
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import LabelEncoder
+from sklearn.compose import make_column_transformer
+from sklearn.linear_model import LogisticRegression
+
+warnings.filterwarnings('ignore')
+%matplotlib nbagg
+%matplotlib notebook
+
+os.chdir(r"C:\Users\KIMJINYU")
+df = pd.read_csv('jeju_financial_life_data.csv', header='infer',encoding='utf-8')
+age_debt=df.pivot_table(values='avg_debt', index='age', columns='sex' , aggfunc=sum)
+ab=age_debt.plot()
+ab.set_ylabel('total ave_debt')
+ab.set_title("total ave_debt by age ")
+ab.set_ylim([0, 70000000000])
+ab.set_xlim([20, 100])
