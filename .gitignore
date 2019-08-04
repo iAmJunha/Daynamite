@@ -108,3 +108,4 @@ Fraud_Detection_System/input/test_transaction.csv
 Fraud_Detection_System/input/test_identity.csv
 Fraud_Detection_System/input/sample_submission.csv
 Fraud_Detection_System/input/3.txt
+Fraud_Detection_System/output/fraud_data.csv
