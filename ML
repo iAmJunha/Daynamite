@@ -1,0 +1,69 @@
+import numpy as np
+
+import pandas as pd
+
+import seaborn as sns
+
+import matplotlib.pyplot as plt
+
+import tensorflow as tf
+
+import matplotlib
+
+import os
+
+import warnings
+
+import csv
+
+import pandas as pd
+
+from sklearn.model_selection import train_test_split
+
+from sklearn.preprocessing import OneHotEncoder
+
+from sklearn.preprocessing import LabelEncoder
+
+from sklearn.compose import make_column_transformer
+
+from sklearn.linear_model import LogisticRegression
+
+warnings.filterwarnings('ignore')
+
+%matplotlib nbagg
+
+%matplotlib notebook
+
+
+
+os.chdir(r"C:\Users\KIMJINYU")
+
+df = pd.read_csv('jeju_financial_life_data.csv', header='infer',encoding='utf-8')
+df=df[['avg_income','avg_spend','avg_debt','avg_credit_rat']].dropna(axis=0)
+df['avg_income']=df['avg_income']*0.000001
+df['avg_spend']=df['avg_spend']*0.000001
+df['avg_debt']=df['avg_debt']*0.000001
+df[['avg_income','avg_spend','avg_debt']].dropna(axis=0)
+x_data =df[['avg_income','avg_spend','avg_debt']]
+y_data=df[['avg_credit_rat']]
+X = tf.placeholder(tf.float32, shape=[None, 3])
+Y = tf.placeholder(tf.float32, shape=[None, 1])
+
+W = tf.Variable(tf.random_normal([3, 1]), name='weight')
+b = tf.Variable(tf.random_normal([1]), name='bias')
+
+
+hypothesis = tf.matmul(X, W) + b
+cost = tf.reduce_mean(tf.square(hypothesis - Y))
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=1e-5)
+train = optimizer.minimize(cost)
+
+sess = tf.Session()
+sess.run(tf.global_variables_initializer())
+
+for step in range(2001):
+    cost_val, hy_val, _ = sess.run([cost, hypothesis, train], feed_dict={X: x_data, Y: y_data})
+
+    if step % 100 == 0:
+        print(f"STEP = {step:06}, cost = {cost_val:>2.2}, 예측값 = {hy_val}")
+print(f"예상 신용등급은 {sess.run(hypothesis, feed_dict={X: [[30,8,34]]})}점입니다.")
